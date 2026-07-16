@@ -1,0 +1,4 @@
+@EndUserText.label: 'Serv.Def. - TG TSCĐ'
+define service Zui_asset_tg_rp {
+  expose zce_asset_tg_rp;
+}

@@ -1,0 +1,34 @@
+{
+  "formatVersion": "2",
+  "header": {
+    "description": "An SAP Fiori application.",
+    "originalLanguage": "en",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD",
+    "targetMappingTitle": "Báo cáo tăng giảm Tài Sản Cố Định"
+  },
+  "ui5AppDetails": {
+    "appId": "zassettgrpov2"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_B49FDFA34F30FAF07B77ECB91B6F20EE8350F535_TM",
+    "semanticObject": "zasset_tg_rp_ov2",
+    "action": "display",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_B49FDFA34F30FAF07B77ECB91B6F20EE8350F535_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "Báo cáo tăng giảm Tài Sản Cố Định"
+      }
+    }
+  ]
+}

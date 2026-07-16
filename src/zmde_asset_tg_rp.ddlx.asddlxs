@@ -1,0 +1,273 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+  typeName: 'Data',
+  typeNamePlural: 'Datas'
+}
+annotate entity zce_asset_tg_rp with
+{
+  @UI.facet: [
+    { id: 'GeneralInfo',
+      purpose: #STANDARD,
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'General Information',
+      position: 10 }
+  ]
+
+  @EndUserText.label: 'Thứ tự'
+  @UI.lineItem: [{ position: 10 }]
+  @UI.identification: [{ position: 10 }]
+  @Consumption.filter.hidden: true
+  ThuTu;
+
+  @EndUserText.label: 'Mã tài sản'
+  @UI.lineItem: [{ position: 20 }]
+  @UI.identification: [{ position: 20 }]
+  @Consumption.filter.hidden: true
+  MaTaiSan;
+
+  @EndUserText.label: 'Tên tài sản'
+  @UI.lineItem: [{ position: 30 }]
+  @UI.identification: [{ position: 30 }]
+  @Consumption.filter.hidden: true
+  TenTaiSan;
+
+  @EndUserText.label: 'Nhóm tài sản'
+  @UI.lineItem: [{ position: 40, label: 'Loại tài sản' }]
+  @UI.identification: [{ position: 40, label: 'Loại tài sản' }]
+  @UI.selectionField: [{ position: 30 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name:    'zvh_assetclass',
+              element: 'AssetClass' }
+  }]
+  @UI.textArrangement: #TEXT_LAST
+  LoaiTaiSan;
+  @UI.hidden: true
+  @Consumption.filter.hidden: true
+  TenLoaiTaiSan;
+
+  @EndUserText.label: 'Số kỳ khấu hao'
+  @UI.lineItem: [{ position: 50 }]
+  @UI.identification: [{ position: 50 }]
+  @Consumption.filter.hidden: true
+  SoKyKhauHao;
+
+  @EndUserText.label: 'Nguyên giá đầu kỳ'
+  @UI.lineItem: [{ position: 60 }]
+  @UI.identification: [{ position: 60 }]
+  @Consumption.filter.hidden: true
+  NguyenGiaDauKy;
+
+  @EndUserText.label: 'Số kỳ còn lại'
+  //  @UI.lineItem: [{ position: 70 }]
+  //  @UI.identification: [{ position: 70 }]
+  @Consumption.filter.hidden: true
+  @UI.hidden: true
+  SoKyConLai;
+
+  @EndUserText.label: 'Hao mòn lũy kế đầu kỳ'
+  @UI.lineItem: [{ position: 80 }]
+  @UI.identification: [{ position: 80 }]
+  @Consumption.filter.hidden: true
+  HaoMonLuyKeDauKy;
+
+  @EndUserText.label: 'Giá trị còn lại đầu kỳ'
+  @UI.lineItem: [{ position: 90 }]
+  @UI.identification: [{ position: 90 }]
+  @Consumption.filter.hidden: true
+  GiaTriConLaiDauKy;
+
+  @EndUserText.label: 'Tăng nguyên giá trong kỳ'
+  @UI.lineItem: [{ position: 100 }]
+  @UI.identification: [{ position: 100 }]
+  @Consumption.filter.hidden: true
+  TangNguyenGiaTrongKy;
+
+  @EndUserText.label: 'Tăng hao mòn lũy kế trong kỳ'
+  @UI.lineItem: [{ position: 110 }]
+  @UI.identification: [{ position: 110 }]
+  @Consumption.filter.hidden: true
+  TangHaoMonLuyKeTrongKy;
+
+  @EndUserText.label: 'Giá trị còn lại tăng trong kỳ'
+  @UI.lineItem: [{ position: 120 }]
+  @UI.identification: [{ position: 120 }]
+  @Consumption.filter.hidden: true
+  GiaTriConLaiTangTrongKy;
+
+  @EndUserText.label: 'Giảm nguyên giá trong kỳ'
+  @UI.lineItem: [{ position: 130 }]
+  @UI.identification: [{ position: 130 }]
+  @Consumption.filter.hidden: true
+  GiamNguyenGiaTrongKy;
+
+  @EndUserText.label: 'Giảm hao mòn lũy kế trong kỳ'
+  @UI.lineItem: [{ position: 140 }]
+  @UI.identification: [{ position: 140 }]
+  @Consumption.filter.hidden: true
+  GiamHaoMonLuyKeTrongKy;
+
+  @EndUserText.label: 'Nguyên giá còn lại giảm trong kỳ'
+  @UI.lineItem: [{ position: 150 }]
+  @UI.identification: [{ position: 150 }]
+  @Consumption.filter.hidden: true
+  NguyenGiaConLaiGiamTrongKy;
+
+  @EndUserText.label: 'Giá trị khấu hao trong kỳ'
+  @UI.lineItem: [{ position: 160 }]
+  @UI.identification: [{ position: 160 }]
+  @Consumption.filter.hidden: true
+  GiaTriKhauHaoTrongKy;
+
+  @EndUserText.label: 'Nguyên giá cuối kỳ'
+  @UI.lineItem: [{ position: 170 }]
+  @UI.identification: [{ position: 170 }]
+  @Consumption.filter.hidden: true
+  NguyenGiaCuoiKy;
+
+  @EndUserText.label: 'Khấu hao lũy kế cuối kỳ'
+  @UI.lineItem: [{ position: 180 }]
+  @UI.identification: [{ position: 180 }]
+  @Consumption.filter.hidden: true
+  KhauHaoLuyKeCuoiKy;
+
+  @EndUserText.label: 'Giá trị còn lại cuối kỳ'
+  @UI.lineItem: [{ position: 190 }]
+  @UI.identification: [{ position: 190 }]
+  @Consumption.filter.hidden: true
+  GiaTriConLaiCuoiKy;
+
+  @EndUserText.label: 'Mã phòng ban'
+  @UI.lineItem: [{ position: 200 }]
+  @UI.identification: [{ position: 200 }]
+  @UI.selectionField: [{ position: 60 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name:    'I_CostCenterStdVH',
+              element: 'CostCenter' }
+  }]
+  MaPhongBan;
+
+  @EndUserText.label: 'Tên phòng ban'
+  @UI.lineItem: [{ position: 210 }]
+  @UI.identification: [{ position: 210 }]
+  @Consumption.filter.hidden: true
+  TenPhongBan;
+
+  @EndUserText.label: 'Địa điểm sử dụng'
+  @UI.lineItem: [{ position: 220 }]
+  @UI.identification: [{ position: 220 }]
+  @Consumption.filter.hidden: true
+  DiaDiemSuDung;
+
+  @EndUserText.label: 'Ngày đưa vào sử dụng'
+  @UI.lineItem: [{ position: 230 }]
+  @UI.identification: [{ position: 230 }]
+  @Consumption.filter.hidden: true
+  NgayDuaVaoSuDung;
+
+  @EndUserText.label: 'Tài khoản khấu hao'
+  @UI.lineItem: [{ position: 240 }]
+  @UI.identification: [{ position: 240 }]
+  @Consumption.filter.hidden: true
+  TaiKhoanKhauHao;
+
+  @EndUserText.label: 'Tài khoản nguyên giá'
+  @UI.lineItem: [{ position: 250 }]
+  @UI.identification: [{ position: 250 }]
+  @Consumption.filter.hidden: true
+  TaiKhoanNguyenGia;
+
+  @EndUserText.label: 'Tài khoản hao mòn'
+  @UI.lineItem: [{ position: 260 }]
+  @UI.identification: [{ position: 260 }]
+  @Consumption.filter.hidden: true
+  TaiKhoanHaoMon;
+
+  // Param fields
+  @EndUserText.label: 'Mã đơn vị'
+  @UI.lineItem: [{ hidden: true }]
+  @UI.identification: [{ hidden: true }]
+  @UI.selectionField: [{ position: 10 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name:    'ZI_COMPANYCODE_VH',
+              element: 'CompanyCode' }
+  }]
+  @Consumption.filter: {
+    mandatory: true,
+    selectionType: #SINGLE
+  }
+  CompanyCode;
+
+  @EndUserText.label: 'Bộ sổ khấu hao'
+  @UI.lineItem: [{ hidden: true }]
+  @UI.identification: [{ hidden: true }]
+  @UI.selectionField: [{ position: 20 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: {
+        name: 'zvh_deprarea',
+        element: 'AssetDepreciationArea'
+    }
+  }]
+  @Consumption.filter: {
+    defaultValue: '01',
+    mandatory: true,
+    selectionType: #SINGLE
+  }
+  DepreciationAreas;
+
+  @EndUserText.label: 'Mã tài sản'
+  @UI.lineItem: [{ hidden: true }]
+  @UI.identification: [{ hidden: true }]
+  @UI.selectionField: [{ position: 40 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: {
+        name: 'I_FixedAssetStdVH',
+        element: 'MasterFixedAsset'
+    }
+  }]
+  AssetNumber;
+
+  @EndUserText.label: 'Mã tài sản phụ'
+  @UI.lineItem: [{ hidden: true }]
+  @UI.identification: [{ hidden: true }]
+  @UI.selectionField: [{ position: 50 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: {
+        name: 'I_FixedAssetStdVH',
+        element: 'FixedAsset'
+    }
+  }]
+  AssetSubNumber;
+
+  @EndUserText.label: 'Kỳ báo cáo'
+  @UI.lineItem: [{ hidden: true }]
+  @UI.identification: [{ hidden: true }]
+  @UI.selectionField: [{ position: 80 }]
+  @Consumption.filter: {
+    selectionType: #INTERVAL
+  }
+  Periods;
+
+  @EndUserText.label: 'Năm báo cáo'
+  @UI.lineItem: [{ hidden: true }]
+  @UI.identification: [{ hidden: true }]
+  @UI.selectionField: [{ position: 90 }]
+  @Consumption.filter: {
+    selectionType: #INTERVAL,
+    mandatory: true
+  }
+  FiscalYear;
+
+  @UI.hidden: true
+  @Consumption.filter.hidden: true
+  DisplayCurrency;
+
+  @EndUserText.label: 'Ngày báo cáo'
+  @UI.lineItem: [{ hidden: true }]
+  @UI.identification: [{ hidden: true }]
+  @UI.selectionField: [{ position: 70 }]
+  @Consumption.filter: {
+    selectionType: #INTERVAL
+  }
+  PostingDate;
+
+}
