@@ -44,6 +44,8 @@ CLASS zcl_ce_asset_tg_rp_top DEFINITION
              TenPhongBan                 TYPE I_CostCenterText-CostCenterDescription,
              NgayDuaVaoSuDung            TYPE I_AssetHistorySheetCube-AssetCapitalizationDate,
              DiaDiemSuDung               TYPE I_FixedAsset-YY1_EvaluationGroup1_FAA,
+             NgayBatDauKhauHao           TYPE I_AssetHistorySheetCube-DepreciationStartDate,
+             NhaMay                      TYPE I_AssetHistorySheetCube-AssetPlant,
            END OF ty_base,
            tt_base TYPE STANDARD TABLE OF ty_base.
 

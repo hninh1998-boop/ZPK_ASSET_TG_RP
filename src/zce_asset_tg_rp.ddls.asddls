@@ -18,6 +18,8 @@ define custom entity zce_asset_tg_rp
       MaPhongBan                 : kostl; //AssetCostCenter
       TenPhongBan                : abap.char(40); // I_AssetHistorySheetCube\_AssetCostCenter\_Text-CostCenterDescription
       NgayDuaVaoSuDung           : abap.dats; // AssetCapitalizationDate
+      NgayBatDauKhauHao          : abap.dats; // DepreciationStartDate
+      NhaMay                     : werks_d; // AssetPlant
 
       // I_FixedAsset
       DiaDiemSuDung              : abap.char(20); // YY1_EvaluationGroup1_FAA

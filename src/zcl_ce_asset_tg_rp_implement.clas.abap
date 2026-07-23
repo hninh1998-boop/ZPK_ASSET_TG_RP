@@ -48,6 +48,7 @@ CLASS zcl_ce_asset_tg_rp_implement DEFINITION
         ev_keydate           TYPE d
         er_loaitaisan        TYPE ry_string
         er_maphongban        TYPE ry_string
+        er_nhamay            TYPE ry_string
       RAISING
         cx_rap_query_provider.
 
@@ -63,7 +64,8 @@ CLASS zcl_ce_asset_tg_rp_implement DEFINITION
         er_ASSETSUBNUMBER    TYPE ry_string
         er_POSTINGDATE       TYPE ry_string
         er_loaitaisan        TYPE ry_string
-        er_maphongban        TYPE ry_string.
+        er_maphongban        TYPE ry_string
+        er_nhamay            TYPE ry_string.
 
     CLASS-METHODS build_special_params
       IMPORTING
@@ -146,6 +148,7 @@ CLASS zcl_ce_asset_tg_rp_implement DEFINITION
         iv_keydate           TYPE d
         ir_loaitaisan        TYPE ry_string
         ir_maphongban        TYPE ry_string
+        ir_nhamay            TYPE ry_string
       EXPORTING
         et_keys              TYPE zcl_ce_asset_tg_rp_top=>tt_key
         et_keys_gia          TYPE zcl_ce_asset_tg_rp_top=>tt_key_gia
@@ -181,6 +184,7 @@ CLASS zcl_ce_asset_tg_rp_implement DEFINITION
         iv_keydate           TYPE d
         ir_loaitaisan        TYPE ry_string
         ir_maphongban        TYPE ry_string
+        ir_nhamay            TYPE ry_string
       EXPORTING
         et_keys              TYPE zcl_ce_asset_tg_rp_top=>tt_key
         et_keys_gia          TYPE zcl_ce_asset_tg_rp_top=>tt_key_gia.
@@ -367,6 +371,8 @@ ENDCLASS.
 
 
 CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
+
+
   METHOD select.
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "Build Params
@@ -384,7 +390,8 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
                             er_todate            = DATA(lr_todate)
                             ev_keydate           = DATA(lv_keydate)
                             er_loaitaisan        = DATA(lr_loaitaisan)
-                            er_maphongban        = DATA(lr_maphongban) ).
+                            er_maphongban        = DATA(lr_maphongban)
+                            er_nhamay            = DATA(lr_nhamay) ).
 
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "Build Main Data
@@ -401,6 +408,7 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
                                iv_keydate           = lv_keydate
                                ir_loaitaisan        = lr_loaitaisan
                                ir_maphongban        = lr_maphongban
+                               ir_nhamay            = lr_nhamay
                      IMPORTING et_keys              = DATA(lt_keys)
                                et_keys_gia          = DATA(lt_keys_gia)
                                et_bases             = DATA(lt_bases)
@@ -421,23 +429,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD requested.
     TRY.
         et_filters = io_request->get_filter( )->get_as_ranges( ).
@@ -445,29 +436,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
         "handle exception
     ENDTRY.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD response.
@@ -525,28 +493,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD build_params.
     "1.Get Params
     get_params( EXPORTING it_filters           = it_filters
@@ -558,7 +504,8 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
                           er_assetsubnumber    = er_ASSETSUBNUMBER
                           er_postingdate       = er_POSTINGDATE
                           er_loaitaisan        = er_loaitaisan
-                          er_maphongban        = er_maphongban ).
+                          er_maphongban        = er_maphongban
+                          er_nhamay            = er_nhamay ).
 
 
     "2.Build special Params
@@ -571,24 +518,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
                            CHANGING cr_periods     = er_periods
                                     cr_postingdate = er_postingdate ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_params.
@@ -620,24 +549,11 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
           ENDLOOP.
         WHEN 'MAPHONGBAN'.
           er_MAPHONGBAN = CORRESPONDING ry_string( ls_filter-range ).
+        WHEN 'NHAMAY'.
+          er_nhamay = CORRESPONDING ry_string( ls_filter-range ).
       ENDCASE.
     ENDLOOP.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD build_special_params.
@@ -664,58 +580,11 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_fiscal_year.
     ev_fiscalyear = COND #( WHEN ir_FISCALYEAR[ 1 ]-high IS NOT INITIAL
                             THEN ir_FISCALYEAR[ 1 ]-high
                             ELSE ir_FISCALYEAR[ 1 ]-low ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_fromto.
@@ -736,47 +605,11 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_periods.
     ev_periods = COND #( WHEN ir_postingdate[ 1 ]-high IS NOT INITIAL
                          THEN ir_postingdate[ 1 ]-high+4(2)
                          ELSE ir_postingdate[ 1 ]-low+4(2) ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD modify_periods_postingdate.
@@ -795,24 +628,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD modify_periods.
     IF cr_periods IS INITIAL.
       APPEND INITIAL LINE TO cr_periods ASSIGNING FIELD-SYMBOL(<lfs_periods>).
@@ -822,29 +637,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
       <lfs_periods>-high   = '012'.
     ENDIF.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD modify_postingdate.
@@ -878,30 +670,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
       <lfs_postingdate>-high = lv_high_date.
     ENDIF.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD validate_postingdate_periods.
@@ -947,30 +715,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD build_main_data.
     "1. Get key
     get_key( EXPORTING ir_companycode       = ir_companycode
@@ -986,6 +730,7 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
                        iv_keydate           = iv_keydate
                        ir_loaitaisan        = ir_loaitaisan
                        ir_maphongban        = ir_maphongban
+                       ir_nhamay            = ir_nhamay
              IMPORTING et_keys              = et_keys
                        et_keys_gia          = et_keys_gia ).
 
@@ -1025,26 +770,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_result.
     LOOP AT it_keys INTO DATA(ls_key).
       DATA(lv_tabix) = sy-tabix.
@@ -1081,32 +806,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_key.
     "1. Get key cho các field thường
     SELECT FROM I_AssetHistorySheetCube(
@@ -1130,6 +829,7 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
         AND a~FiscalYear            IN @ir_FISCALYEAR
         AND a~AssetClass            IN @ir_loaitaisan
         AND a~AssetCostCenter       IN @ir_maphongban
+        AND a~AssetPlant            IN @ir_nhamay
 
         "Filtering logic asset
         "Logic lọc 1: Ví dụ chạy báo cáo từ tháng 7 → tháng 8. Thì lọc bỏ các tài sản có ngày Deactivation on < 01.07.2026
@@ -1176,6 +876,7 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
         AND a~FiscalYear            IN @ir_FISCALYEAR
         AND a~AssetClass            IN @ir_loaitaisan
         AND a~AssetCostCenter       IN @ir_maphongban
+        AND a~AssetPlant            IN @ir_nhamay
 
         "Filtering logic asset
         "Logic lọc 1: Ví dụ chạy báo cáo từ tháng 7 → tháng 8. Thì lọc bỏ các tài sản có ngày Deactivation on < 01.07.2026
@@ -1202,29 +903,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_result_key.
     "Key fields
     cs_result-CompanyCode       = is_key-CompanyCode.
@@ -1244,27 +922,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
               lv_assetsubnumber.
     cs_result-MaTaiSan = |{ lv_assetnumber }-{ lv_assetsubnumber }|.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_base.
@@ -1315,35 +972,15 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
         b~AssetCapitalizationDate AS NgayDuaVaoSuDung,
 
         "Địa điểm sử dụng
-        c~YY1_EvaluationGroup1_FAA AS DiaDiemSuDung
+        c~YY1_EvaluationGroup1_FAA AS DiaDiemSuDung,
+
+        "Ngày bắt đầu khấu hao
+        b~DepreciationStartDate AS NgayBatDauKhauHao,
+
+        "Nhà máy
+        b~AssetPlant AS NhaMay
     INTO TABLE @et_bases.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_result_base.
@@ -1371,25 +1008,13 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
 
     "Ngày đưa vào sử dụng
     cs_result-NgayDuaVaoSuDung = is_base-NgayDuaVaoSuDung.
+
+    "Ngày bắt đầu khấu hao
+    cs_result-NgayBatDauKhauHao = is_base-NgayBatDauKhauHao.
+
+    "Nhà máy
+    cs_result-NhaMay = is_base-NhaMay.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_result_ztable.
@@ -1405,26 +1030,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
         AccountDetermination = is_base-loaitaisan
         AccountAssignmentFor = 'KTNAFG' ]-GlAccount OPTIONAL ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_config.
@@ -1444,33 +1049,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
         AND AccountAssignmentFor IN ( 'KTNAFG', 'KTNAFB', 'KTANSW' )
     INTO TABLE @et_config.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_giadauky.
@@ -1494,36 +1072,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
                              ir_companycode = ir_companycode
                    IMPORTING et_giadaukyb   = et_giadaukyb ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_giadaukya.
@@ -1570,30 +1118,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
         a~FiscalYear
     INTO TABLE @et_giadaukya.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_giadaukyb.
@@ -1765,54 +1289,12 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_params_giadaukyb.
     APPEND INITIAL LINE TO er_b_postingdate ASSIGNING FIELD-SYMBOL(<lfs_b_pdate>).
     <lfs_b_pdate>-sign   = 'I'.
     <lfs_b_pdate>-option = 'LT'.
     <lfs_b_pdate>-low    = ir_fromdate[ 1 ]-low.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_temp_giadaukyb.
@@ -1877,20 +1359,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_origin_rev_giadaukyb.
     SELECT FROM I_JournalEntry AS a
     INNER JOIN @it_reversal_doc AS b
@@ -1914,34 +1382,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_giadaukyb_final.
     SELECT FROM @it_temp_giadaukyb AS a
     FIELDS
@@ -1963,30 +1403,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_result_gia.
     "Giá đầu kỳ (Nguyên giá + Hao mòn lũy kế)
     get_result_giadauky( EXPORTING it_giadaukya = it_giadaukya
@@ -2002,27 +1418,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
     "Giá cuối kỳ
     get_result_giacuoiky( CHANGING cs_result = cs_result ).
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_result_giadauky.
@@ -2050,31 +1445,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
     cs_result-HaoMonLuyKeDauKy = abs( lv_haomonluykedaukya + lv_haomonluykedaukyb ).
     cs_result-GiaTriConLaiDauKy = cs_result-NguyenGiaDauKy - cs_result-HaoMonLuyKeDauKy.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_tanggiamgia.
@@ -2246,59 +1616,10 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_params_tanggiamgia.
     ev_fromdate = ir_fromdate[ 1 ]-low.
     ev_todate = ir_todate[ 1 ]-low.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_temp_tanggiamgia.
@@ -2386,26 +1707,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_origin_rev_tanggiamgia.
     SELECT FROM I_JournalEntry AS a
     INNER JOIN @it_reversal_doc AS b
@@ -2427,37 +1728,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
             OR ( a~AccountingDocumentType = 'WA' AND a~IsReversal = 'X' ) )
     INTO TABLE @et_origin_rev_doc.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   METHOD get_tanggiamgia_final.
@@ -2484,31 +1754,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_result_tanggiamgia.
     READ TABLE it_tanggiamgia INTO DATA(ls_tanggiamnguyengia) WITH KEY CompanyCode       = is_key-CompanyCode
                                                                        DepreciationAreas = is_key-depreciationareas
@@ -2528,25 +1773,6 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
   ENDMETHOD.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   METHOD get_result_giacuoiky.
     "Nguyên giá cuối kỳ
     cs_result-NguyenGiaCuoiKy = cs_result-NguyenGiaDauKy
@@ -2563,36 +1789,4 @@ CLASS zcl_ce_asset_tg_rp_implement IMPLEMENTATION.
     cs_result-GiaTriConLaiCuoiKy = cs_result-NguyenGiaCuoiKy
                                    - cs_result-HaoMonLuyKeDauKy.
   ENDMETHOD.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ENDCLASS.

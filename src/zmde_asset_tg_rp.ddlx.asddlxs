@@ -152,6 +152,16 @@ annotate entity zce_asset_tg_rp with
   @Consumption.filter.hidden: true
   TenPhongBan;
 
+  @EndUserText.label: 'Nhà Máy'
+  @UI.lineItem: [{ position: 211 }]
+  @UI.identification: [{ position: 211 }]
+  @UI.selectionField: [{ position: 61 }]
+  @Consumption.valueHelpDefinition: [{
+    entity: { name:    'I_PlantStdVH',
+              element: 'Plant' }
+  }]
+  NhaMay;
+
   @EndUserText.label: 'Địa điểm sử dụng'
   @UI.lineItem: [{ position: 220 }]
   @UI.identification: [{ position: 220 }]
@@ -163,6 +173,12 @@ annotate entity zce_asset_tg_rp with
   @UI.identification: [{ position: 230 }]
   @Consumption.filter.hidden: true
   NgayDuaVaoSuDung;
+
+  @EndUserText.label: 'Ngày bắt đầu khấu hao'
+  @UI.lineItem: [{ position: 231 }]
+  @UI.identification: [{ position: 231 }]
+  @Consumption.filter.hidden: true
+  NgayBatDauKhauHao;
 
   @EndUserText.label: 'Tài khoản khấu hao'
   @UI.lineItem: [{ position: 240 }]

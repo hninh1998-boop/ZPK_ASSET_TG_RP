@@ -11,7 +11,9 @@ ENDCLASS.
 
 
 
-CLASS zcl_ce_asset_tg_rp IMPLEMENTATION.
+CLASS ZCL_CE_ASSET_TG_RP IMPLEMENTATION.
+
+
   METHOD if_rap_query_provider~select.
     "1. REQUEST
     zcl_ce_asset_tg_rp_implement=>requested( EXPORTING io_request      = io_request
@@ -24,5 +26,4 @@ CLASS zcl_ce_asset_tg_rp IMPLEMENTATION.
                                                       io_response = io_response
                                              CHANGING ct_result   = lt_result ).
   ENDMETHOD.
-
 ENDCLASS.
