@@ -107,6 +107,7 @@ CLASS zcl_ce_asset_tg_rp_top DEFINITION
              ReversalReferenceDocument TYPE I_GLAccountLineItemSemTag-ReversalReferenceDocument,
              FiscalYear                TYPE I_GLAccountLineItemSemTag-FiscalYear,
              postingdate               TYPE I_GLAccountLineItemSemTag-postingdate,
+             AccountingDocumentType    TYPE I_GLAccountLineItemSemTag-AccountingDocumentType,
            END OF ty_reversal_doc,
            tt_reversal_doc TYPE STANDARD TABLE OF ty_reversal_doc WITH EMPTY KEY.
 
@@ -134,6 +135,36 @@ CLASS zcl_ce_asset_tg_rp_top DEFINITION
              GiaTriKhauHaoTrongKy TYPE I_AssetHistorySheetCube-AmountInDisplayCurrency,
            END OF ty_temp_tanggiamgia,
            tt_temp_tanggiamgia TYPE STANDARD TABLE OF ty_temp_tanggiamgia WITH EMPTY KEY.
+
+    TYPES: BEGIN OF ty_reversal_doc_wa,
+             doc_init           TYPE I_AssetHistorySheetCube-accountingdocument,
+             docitem_init       TYPE I_AssetHistorySheetCube-LedgerGLLineItem,
+             accountingdocument TYPE I_GLAccountLineItemSemTag-ReferenceDocument,
+             ledgergllineitem   TYPE I_GLAccountLineItemSemTag-ReferenceDocumentItem,
+             fiscalyear         TYPE I_AssetHistorySheetCube-FiscalYear,
+             postingdate        TYPE I_GLAccountLineItemSemTag-PostingDate,
+           END OF ty_reversal_doc_wa,
+           tt_reversal_doc_wa TYPE STANDARD TABLE OF ty_reversal_doc_wa WITH EMPTY KEY.
+
+    TYPES: BEGIN OF ty_origin_rev_doc_wa,
+             doc_init             TYPE I_AssetHistorySheetCube-accountingdocument,
+             docitem_init         TYPE I_AssetHistorySheetCube-LedgerGLLineItem,
+             fiscalyear           TYPE I_AssetHistorySheetCube-FiscalYear,
+             MaterialDocument     TYPE I_MaterialDocumentItem_2-MaterialDocument,
+             MaterialDocumentItem TYPE I_MaterialDocumentItem_2-MaterialDocumentItem,
+             PostingDate          TYPE I_MaterialDocumentItem_2-PostingDate,
+           END OF ty_origin_rev_doc_wa,
+           tt_origin_rev_doc_wa TYPE STANDARD TABLE OF ty_origin_rev_doc_wa WITH EMPTY KEY.
+
+    TYPES: BEGIN OF ty_rev_matdoc_wa,
+             CompanyCode        TYPE I_GLAccountLineItemSemTag-CompanyCode,
+             FiscalYear         TYPE I_GLAccountLineItemSemTag-FiscalYear,
+             AccountingDocument TYPE I_GLAccountLineItemSemTag-AccountingDocument,
+             LedgerGLLineItem   TYPE I_GLAccountLineItemSemTag-LedgerGLLineItem,
+             PostingDate        TYPE I_GLAccountLineItemSemTag-PostingDate,
+           END OF ty_rev_matdoc_wa,
+           tt_rev_matdoc_wa TYPE STANDARD TABLE OF ty_rev_matdoc_wa WITH EMPTY KEY.
+
 
   PROTECTED SECTION.
   PRIVATE SECTION.
