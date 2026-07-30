@@ -106,7 +106,7 @@ annotate entity zce_asset_tg_rp with
   @Consumption.filter.hidden: true
   GiamHaoMonLuyKeTrongKy;
 
-  @EndUserText.label: 'Nguyên giá còn lại giảm trong kỳ'
+  @EndUserText.label: 'Giá trị còn lại giảm trong kỳ'
   @UI.lineItem: [{ position: 150 }]
   @UI.identification: [{ position: 150 }]
   @Consumption.filter.hidden: true
@@ -180,7 +180,7 @@ annotate entity zce_asset_tg_rp with
   @Consumption.filter.hidden: true
   NgayBatDauKhauHao;
 
-  @EndUserText.label: 'Tài khoản khấu hao'
+  @EndUserText.label: 'Tài khoản chi phí khấu hao'
   @UI.lineItem: [{ position: 240 }]
   @UI.identification: [{ position: 240 }]
   @Consumption.filter.hidden: true
